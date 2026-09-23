@@ -1,0 +1,21 @@
+{
+  "request": "/github/profiles/torvalds",
+  "response": {
+    "message": "Profile retrieved successfully.",
+    "data": {
+      "username": "torvalds",
+      "id": 1024025,
+      "name": "Linus Torvalds",
+      "bio": null,
+      "company": "Linux Foundation",
+      "location": "Portland",
+      "blog": "https://kernel.org",
+      "public_repos": 8,
+      "followers": 315540,
+      "following": 0,
+      "avatar": "https://avatars.githubusercontent.com/u/1024025",
+      "created_at": "2011-09-03T15:26:22Z",
+      "url": "https://github.com/torvalds"
+    }
+  }
+}

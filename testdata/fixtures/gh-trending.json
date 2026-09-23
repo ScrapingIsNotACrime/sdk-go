@@ -1,0 +1,29 @@
+{
+  "request": "/github/trending/repositories?since=weekly&language=php&limit=1",
+  "response": {
+    "message": "Trending repositories retrieved successfully.",
+    "data": {
+      "items": [
+        {
+          "name": "example-cli",
+          "full_name": "acme/example-cli",
+          "description": "A tiny CLI that got popular this week",
+          "stars": 2400,
+          "forks": 118,
+          "language": "PHP",
+          "topics": [
+            "cli"
+          ],
+          "is_fork": false,
+          "is_archived": false,
+          "created_at": "2026-08-04T09:12:00Z",
+          "updated_at": "2026-08-10T22:41:00Z",
+          "url": "https://github.com/acme/example-cli"
+        }
+      ],
+      "total": 1200,
+      "page": 1,
+      "has_more": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "request": "/instagram/profile/nasa/timeline?count=12&cursor=3950671748375397992_528817151",
+  "response": {
+    "message": "Timeline retrieved successfully.",
+    "data": {
+      "medias": [
+        {
+          "id": "3957840214710558089",
+          "shortcode": "DbtErSrlB2J",
+          "type": "image",
+          "caption": "A beautiful sunset 🌅",
+          "likes": 12500,
+          "comments": 150,
+          "preview_comments": [],
+          "location": null,
+          "display_url": "https://...",
+          "taken_at_timestamp": "2026-08-05 18:30:00 UTC"
+        }
+      ],
+      "has_more": true,
+      "next_cursor": "3943186559128294411_528817151"
+    }
+  }
+}

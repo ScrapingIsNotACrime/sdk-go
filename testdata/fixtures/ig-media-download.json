@@ -1,0 +1,31 @@
+{
+  "request": "/instagram/media/DbtErSrlB2J/download",
+  "response": {
+    "message": "Download links retrieved successfully.",
+    "data": {
+      "shortcode": "DbtErSrlB2J",
+      "type": "video",
+      "expires_at": "2026-08-08 07:51:36 UTC",
+      "assets": [
+        {
+          "kind": "video",
+          "index": 0,
+          "url": "https://instagram.fxxx.fbcdn.net/o1/v/t2/f2/m86/video.mp4",
+          "width": 720,
+          "height": 1280,
+          "quality": "101",
+          "expires_at": "2026-08-08 07:51:36 UTC"
+        },
+        {
+          "kind": "thumbnail",
+          "index": 0,
+          "url": "https://instagram.fxxx.fbcdn.net/v/t51/thumb.jpg",
+          "width": 1080,
+          "height": 1920,
+          "quality": null,
+          "expires_at": "2026-08-08 07:51:36 UTC"
+        }
+      ]
+    }
+  }
+}

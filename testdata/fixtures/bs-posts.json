@@ -1,0 +1,25 @@
+{
+  "request": "/bluesky/profiles/bsky.app/posts?limit=25",
+  "response": {
+    "message": "Posts retrieved successfully.",
+    "data": {
+      "posts": [
+        {
+          "uri": "at://did:plc:z72i/app.bsky.feed.post/3l7abc",
+          "cid": "bafy",
+          "text": "We are rolling out improvements",
+          "author": "bsky.app",
+          "likes": 2543,
+          "reposts": 235,
+          "replies": 247,
+          "quotes": 83,
+          "created_at": "2026-08-05T20:32:40.425Z",
+          "indexed_at": "2026-08-05T20:33:00.000Z",
+          "url": "https://bsky.app/profile/bsky.app/post/3l7abc"
+        }
+      ],
+      "next_cursor": "2026-07-10T17:43:30.972Z",
+      "has_more": true
+    }
+  }
+}

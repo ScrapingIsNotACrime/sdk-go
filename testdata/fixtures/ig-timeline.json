@@ -1,0 +1,40 @@
+{
+  "request": "/instagram/profile/instagram/timeline/latest",
+  "response": {
+    "message": "Timeline retrieved successfully.",
+    "data": {
+      "count": 1300,
+      "latest_count": 12,
+      "medias": [
+        {
+          "id": "3123456789012345678",
+          "shortcode": "CxBcDefGhIj",
+          "type": "image",
+          "comments": 150,
+          "likes": 12500,
+          "caption": "A beautiful sunset 🌅 #nature #photography",
+          "location": null,
+          "thumbnail_resources": null,
+          "display_url": "https://scontent.example.com/v/image.jpg",
+          "taken_at_timestamp": "2024-04-01 18:30:00 UTC"
+        },
+        {
+          "id": "3198765432109876543",
+          "shortcode": "DyKlMnOpQrS",
+          "type": "video",
+          "video_views": 2500000,
+          "comments": 320,
+          "likes": 48000,
+          "caption": "Behind the scenes 🎬 #instagram",
+          "location": null,
+          "thumbnail_resources": null,
+          "display_url": "https://scontent.example.com/v/thumb.jpg",
+          "video_url": "https://scontent.example.com/v/video.mp4",
+          "has_audio": true,
+          "clips_music_attribution_info": null,
+          "taken_at_timestamp": "2024-03-28 14:00:00 UTC"
+        }
+      ]
+    }
+  }
+}

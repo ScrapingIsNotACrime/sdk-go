@@ -1,0 +1,33 @@
+{
+  "request": "/appstore/search?term=instagram&country=us&limit=1",
+  "response": {
+    "message": "App Store search results retrieved successfully.",
+    "data": {
+      "term": "instagram",
+      "country": "us",
+      "resultCount": 1,
+      "apps": [
+        {
+          "id": 389801252,
+          "bundleId": "com.burbn.instagram",
+          "name": "Instagram",
+          "developer": "Instagram, Inc.",
+          "url": "https://apps.apple.com/us/app/instagram/id389801252",
+          "iconUrl": "https://...",
+          "price": 0,
+          "currency": "USD",
+          "rating": 4.7,
+          "ratingCount": 25000000,
+          "version": "312.0",
+          "genres": [
+            "Photo & Video",
+            "Social Networking"
+          ],
+          "screenshots": [
+            "https://..."
+          ]
+        }
+      ]
+    }
+  }
+}

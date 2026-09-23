@@ -1,0 +1,36 @@
+{
+  "request": "/instagram/profile/cafedaesquina/contact",
+  "response": {
+    "message": "Contact retrieved successfully.",
+    "data": {
+      "username": "cafedaesquina",
+      "full_name": "Café da Esquina",
+      "biography": "☕ Pedidos: contato@cafe.com.br | wa.me/5511999990000",
+      "is_verified": false,
+      "is_business": true,
+      "category": "Coffee shop",
+      "email": null,
+      "phone": null,
+      "external_url": "https://cafe.com.br",
+      "address": {
+        "street_address": "Rua X, 123",
+        "zip_code": "01310-100",
+        "city_name": "São Paulo",
+        "region_name": "SP",
+        "country_code": "BR"
+      },
+      "emails_found": [
+        {
+          "value": "contato@cafe.com.br",
+          "source": "biography"
+        }
+      ],
+      "phones_found": [
+        {
+          "value": "+5511999990000",
+          "source": "whatsapp_link"
+        }
+      ]
+    }
+  }
+}

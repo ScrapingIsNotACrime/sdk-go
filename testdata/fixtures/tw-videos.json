@@ -1,0 +1,20 @@
+{
+  "request": "/twitch/profiles/ninja/videos?limit=20",
+  "response": {
+    "message": "Videos retrieved successfully.",
+    "data": {
+      "videos": [
+        {
+          "id": "999",
+          "title": "Yesterday's stream",
+          "duration_seconds": 7200,
+          "views": 120000,
+          "published_at": "2026-08-07T22:00:00Z",
+          "thumbnail": "https://static-cdn.jtvnw.net/t.jpg",
+          "url": "https://twitch.tv/videos/999"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

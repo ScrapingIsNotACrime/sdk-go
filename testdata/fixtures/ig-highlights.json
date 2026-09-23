@@ -1,0 +1,17 @@
+{
+  "request": "/instagram/profile/nasa/highlights",
+  "response": {
+    "message": "Highlights retrieved successfully.",
+    "data": {
+      "username": "nasa",
+      "user_id": "528817151",
+      "highlights": [
+        {
+          "id": "highlight:18201653992314974",
+          "title": "Artemis III",
+          "cover": "https://..."
+        }
+      ]
+    }
+  }
+}
