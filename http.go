@@ -22,6 +22,20 @@ type route struct {
 	query []queryParam
 }
 
+// with returns a copy of r with the query parameters appended.
+func (r route) with(query ...[]queryParam) route {
+	r.query = append(append([]queryParam(nil), r.query...), concat(query)...)
+	return r
+}
+
+func concat(query [][]queryParam) []queryParam {
+	var all []queryParam
+	for _, q := range query {
+		all = append(all, q...)
+	}
+	return all
+}
+
 // qs is a string query parameter, omitted when empty.
 func qs(key, value string) []queryParam {
 	if value == "" {
