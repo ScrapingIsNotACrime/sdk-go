@@ -274,6 +274,36 @@ func TestTypeMismatchIsTolerated(t *testing.T) {
 	if err != nil || got.Username != "nasa" || got.Followers != 0 {
 		t.Fatalf("got=%+v err=%v", got, err)
 	}
+
+	// A mismatch nested inside a slice of structs is still a field-level
+	// mismatch (Field is non-empty), so it stays tolerated too.
+	type item struct {
+		ID int `json:"id"`
+	}
+	type wrap struct {
+		Items []item `json:"items"`
+	}
+	core = testCore(t, roundTrip(func(*http.Request) (*http.Response, error) {
+		return response(200, `{"data":{"items":[{"id":"x"}]}}`, nil), nil
+	}))
+	gotWrap, err := getJSON[wrap](context.Background(), core, route{path: "/x"}, nil)
+	if err != nil || len(gotWrap.Items) != 1 || gotWrap.Items[0].ID != 0 {
+		t.Fatalf("got=%+v err=%v", gotWrap, err)
+	}
+}
+
+func TestDecodeRejectsTopLevelShapeMismatch(t *testing.T) {
+	type profile struct {
+		Username string `json:"username"`
+	}
+	for _, data := range []string{`[1,2]`, `"text"`} {
+		core := testCore(t, roundTrip(func(*http.Request) (*http.Response, error) {
+			return response(200, `{"data":`+data+`}`, nil), nil
+		}))
+		if _, err := getJSON[profile](context.Background(), core, route{path: "/x"}, nil); !errors.Is(err, ErrAPI) {
+			t.Errorf("data=%s: err=%v", data, err)
+		}
+	}
 }
 
 func TestGetJSONReturnsRouteErrorWithoutRequest(t *testing.T) {

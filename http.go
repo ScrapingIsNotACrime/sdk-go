@@ -215,12 +215,16 @@ func interpret(status int, header http.Header, body []byte) (json.RawMessage, *f
 	return nil, &failure{err: errorFromStatus(status, message, requestID), retryAfter: retryAfter}
 }
 
-// decode fills out from raw. A value whose JSON type does not match its field
-// leaves that field at its zero value instead of failing the whole call.
+// decode fills out from raw. A field whose JSON type does not match its
+// destination is left at its zero value instead of failing the whole call.
+// A mismatch at the root (out itself has the wrong shape, e.g. an array or a
+// string where a struct was expected) still fails: json.UnmarshalTypeError
+// only names a field for a mismatch found inside out, leaving Field empty at
+// the root.
 func decode(raw json.RawMessage, out any) error {
 	err := json.Unmarshal(raw, out)
 	var typeErr *json.UnmarshalTypeError
-	if err == nil || errors.As(err, &typeErr) {
+	if err == nil || (errors.As(err, &typeErr) && typeErr.Field != "") {
 		return nil
 	}
 	return &Error{Message: "unexpected response data: " + err.Error(), kind: ErrAPI, cause: err}
