@@ -25,16 +25,42 @@ type TikTokVideo struct {
 	Extra map[string]any `json:"-"`
 }
 
+// UnmarshalJSON decodes id into ID only when it is a JSON string; any other
+// shape (number, null, ...) leaves ID nil and keeps the raw value in Extra,
+// alongside every other key, so no data is ever dropped.
 func (v *TikTokVideo) UnmarshalJSON(data []byte) error {
-	type known TikTokVideo
-	if err := json.Unmarshal(data, (*known)(v)); err != nil {
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &fields); err != nil {
 		return err
 	}
-	var all map[string]any
-	if err := json.Unmarshal(data, &all); err != nil {
-		return err
+	v.ID = nil
+	extra := make(map[string]any, len(fields))
+	for key, raw := range fields {
+		var value any
+		if err := json.Unmarshal(raw, &value); err != nil {
+			return err
+		}
+		if key == "id" {
+			if id, ok := value.(string); ok {
+				v.ID = &id
+				continue
+			}
+		}
+		extra[key] = value
 	}
-	delete(all, "id")
-	v.Extra = all
+	v.Extra = extra
 	return nil
+}
+
+// MarshalJSON re-encodes Extra plus id (when ID is set), so round-tripping
+// through the SDK never loses data.
+func (v TikTokVideo) MarshalJSON() ([]byte, error) {
+	out := make(map[string]any, len(v.Extra)+1)
+	for key, value := range v.Extra {
+		out[key] = value
+	}
+	if v.ID != nil {
+		out["id"] = *v.ID
+	}
+	return json.Marshal(out)
 }
