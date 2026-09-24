@@ -1,0 +1,45 @@
+name: Release
+
+# Runs on every push to main (every merged PR). semantic-release reads the
+# commits since the last v* tag: fix -> patch, feat -> minor, and while the SDK
+# is 0.x a breaking change is also a minor (see .releaserc.json). docs, chore,
+# test, ci and refactor commits alone release nothing. In Go the tag is the
+# release; the last step asks the module proxy for it so pkg.go.dev indexes it.
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the v* tag and the GitHub Release
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - run: go vet ./... && go test -race ./...
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: semantic-release
+        run: >-
+          npx --yes
+          -p semantic-release@25
+          -p conventional-changelog-conventionalcommits@9
+          semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Index the new version on pkg.go.dev
+        run: |
+          tag="$(git tag --points-at HEAD --list 'v*' | sort -V | tail -n1)"
+          if [ -n "$tag" ]; then
+            GOPROXY=https://proxy.golang.org GOFLAGS=-mod=mod go list -m "github.com/ScrapingIsNotACrime/sdk-go@$tag"
+          fi
