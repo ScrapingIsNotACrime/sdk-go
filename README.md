@@ -131,6 +131,8 @@ type Page[T, R any] struct {
 }
 ```
 
+`HasMore` is true exactly when `Next` will fetch another page (an empty final page, or an announced next page/cursor with no items, both leave it `false`).
+
 Iterate every item with `All`, using Go 1.23's range-over-func. **Iterating fetches every remaining page; each page is one billed request**, so bound the loop:
 
 ```go
@@ -171,7 +173,7 @@ if err != nil {
 
 ## Errors
 
-Every failure is returned as `*sinac.Error`, carrying `Status` (the HTTP status, or `0` for network errors and invalid arguments), `Message` and `RequestID` (the `X-Request-Id` header, when the API sends one). Match it by kind with `errors.Is` against the sentinels below, or unwrap it with `errors.As` to read `Status` and `RequestID`:
+Every API, network and argument failure is a `*sinac.Error`; when your `ctx` is cancelled or past its deadline the error wraps `ctx.Err()` instead (`errors.Is(err, context.Canceled)`). Otherwise it carries `Status` (the HTTP status, or `0` for network errors and invalid arguments), `Message` and `RequestID` (the `X-Request-Id` header, when the API sends one). Match it by kind with `errors.Is` against the sentinels below, or unwrap it with `errors.As` to read `Status` and `RequestID`:
 
 ```go
 var apiErr *sinac.Error
@@ -210,6 +212,8 @@ default:
 ## Context and cancellation
 
 Every method takes the caller's `context.Context` and honors it: a `ctx` that is already cancelled, or that reaches its deadline — including while the client is sleeping between retries — makes the call return immediately with an error satisfying `errors.Is(err, ctx.Err())`. Cancellation is never retried, even when the underlying failure would otherwise be.
+
+A per-attempt timeout is reported as `ErrConnection`, and its cause also matches `context.DeadlineExceeded` — check `errors.Is(err, sinac.ErrConnection)` or `ctx.Err() != nil` to tell the SDK's timeout from your own deadline.
 
 ## Retries
 
