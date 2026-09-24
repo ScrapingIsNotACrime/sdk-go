@@ -1,0 +1,22 @@
+{
+  "request": "/linktree/profiles/linktree",
+  "response": {
+    "message": "Profile retrieved successfully.",
+    "data": {
+      "username": "linktree",
+      "title": "@linktree",
+      "description": "The only link in bio trusted by 70M+",
+      "avatar": "https://ugc.production.linktr.ee/a.jpeg",
+      "is_verified": true,
+      "url": "https://linktr.ee/linktree",
+      "links": [
+        {
+          "id": "1",
+          "title": "Homepage",
+          "url": "https://linktr.ee/",
+          "type": "CLASSIC"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "request": "/tiktok/profile/tiktok",
+  "response": {
+    "message": "Profile retrieved successfully.",
+    "data": {
+      "id": "107955",
+      "username": "tiktok",
+      "nickname": "TikTok",
+      "bio": "One TikTok can make a big impact",
+      "bio_link": "linktr.ee/tiktok",
+      "avatar": "https://p16-common-sign.tiktokcdn.com/...",
+      "sec_uid": "MS4wLjABAAAAv7iSuuXDJGDvJkmH_vz1qkDZYo1apxgzaxdBSeIuPiM",
+      "followers": 94800000,
+      "following": 0,
+      "hearts": 461700000,
+      "videos": 1468,
+      "is_private": false,
+      "is_verified": true
+    }
+  }
+}

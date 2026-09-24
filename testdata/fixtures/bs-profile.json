@@ -1,0 +1,19 @@
+{
+  "request": "/bluesky/profiles/bsky.app",
+  "response": {
+    "message": "Profile retrieved successfully.",
+    "data": {
+      "did": "did:plc:z72i7hdynmk6r22z27h6tvur",
+      "handle": "bsky.app",
+      "display_name": "Bluesky",
+      "description": "official Bluesky account",
+      "avatar": "https://cdn.bsky.app/img/avatar/plain/a.jpg",
+      "banner": null,
+      "followers": 34441055,
+      "following": 11,
+      "posts": 804,
+      "created_at": "2023-04-12T04:53:57.057Z",
+      "url": "https://bsky.app/profile/bsky.app"
+    }
+  }
+}

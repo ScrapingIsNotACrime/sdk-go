@@ -1,0 +1,24 @@
+{
+  "request": "/appstore/reviews?appId=389801252&country=us&page=1",
+  "response": {
+    "message": "App reviews retrieved successfully.",
+    "data": {
+      "appId": "389801252",
+      "country": "us",
+      "page": 1,
+      "reviews": [
+        {
+          "id": "14288247378",
+          "author": "exampleuser",
+          "rating": 4,
+          "title": "Great app overall",
+          "content": "Does what it says, minor bugs here and there.",
+          "version": "437.2.0",
+          "updatedAt": "2026-07-10T18:19:36-07:00",
+          "voteCount": 3,
+          "voteSum": 2
+        }
+      ]
+    }
+  }
+}

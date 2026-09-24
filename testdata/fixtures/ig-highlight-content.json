@@ -1,0 +1,24 @@
+{
+  "request": "/instagram/highlights/highlight:18201653992314974",
+  "response": {
+    "message": "Highlight retrieved successfully.",
+    "data": {
+      "id": "highlight:18201653992314974",
+      "title": "Artemis III",
+      "items": [
+        {
+          "id": "3914477988573951523",
+          "shortcode": "CxBcDefGhIj",
+          "type": "image",
+          "caption": "",
+          "likes": 0,
+          "comments": 0,
+          "preview_comments": [],
+          "location": null,
+          "display_url": "https://...",
+          "taken_at_timestamp": "2026-06-08 12:36:27 UTC"
+        }
+      ]
+    }
+  }
+}

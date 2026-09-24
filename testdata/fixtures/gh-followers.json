@@ -1,0 +1,18 @@
+{
+  "request": "/github/profiles/torvalds/followers?limit=30&page=1",
+  "response": {
+    "message": "Followers retrieved successfully.",
+    "data": {
+      "items": [
+        {
+          "username": "sprsquish",
+          "id": 1,
+          "avatar": "https://avatars.githubusercontent.com/u/1",
+          "url": "https://github.com/sprsquish"
+        }
+      ],
+      "total": null,
+      "has_more": true
+    }
+  }
+}

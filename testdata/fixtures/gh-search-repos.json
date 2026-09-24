@@ -1,0 +1,31 @@
+{
+  "request": "/github/repositories?q=stars:%3E10000+language:php&limit=1",
+  "response": {
+    "message": "Repositories retrieved successfully.",
+    "data": {
+      "items": [
+        {
+          "name": "laravel",
+          "full_name": "laravel/laravel",
+          "description": "Laravel is a web application framework with expressive, elegant syntax.",
+          "stars": 79000,
+          "forks": 24000,
+          "language": "PHP",
+          "topics": [
+            "php",
+            "framework",
+            "laravel"
+          ],
+          "is_fork": false,
+          "is_archived": false,
+          "created_at": "2011-06-08T17:36:00Z",
+          "updated_at": "2026-08-09T11:20:00Z",
+          "url": "https://github.com/laravel/laravel"
+        }
+      ],
+      "total": 5000,
+      "page": 1,
+      "has_more": true
+    }
+  }
+}

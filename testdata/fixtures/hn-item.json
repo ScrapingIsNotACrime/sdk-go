@@ -1,0 +1,26 @@
+{
+  "request": "/hackernews/items/8863",
+  "response": {
+    "message": "Item retrieved successfully.",
+    "data": {
+      "id": 8863,
+      "type": "story",
+      "title": "My YC app: Dropbox",
+      "author": "dhouston",
+      "points": 111,
+      "url": "http://getdropbox.com",
+      "text": null,
+      "created_at": "2007-04-04T19:16:40.000Z",
+      "hn_url": "https://news.ycombinator.com/item?id=8863",
+      "comments": [
+        {
+          "id": 8952,
+          "author": "BrandonM",
+          "text": "I have a few qualms with this app...",
+          "created_at": "2007-04-04T19:20:00.000Z",
+          "replies": []
+        }
+      ]
+    }
+  }
+}

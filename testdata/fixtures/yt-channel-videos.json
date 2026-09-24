@@ -1,0 +1,26 @@
+{
+  "request": "/youtube/channel/youtube/videos",
+  "response": {
+    "message": "Channel videos retrieved successfully.",
+    "data": {
+      "channel": {
+        "title": "YouTube",
+        "description": "Official YouTube channel",
+        "externalId": "UCBR8-60-B28hp2BmDPdntcQ",
+        "avatar": "https://yt3.googleusercontent.com/..."
+      },
+      "videos": [
+        {
+          "id": "dQw4w9WgXcQ",
+          "title": "Sample video title",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+          "metadataText": [
+            "20K views",
+            "2 days ago"
+          ]
+        }
+      ]
+    }
+  }
+}

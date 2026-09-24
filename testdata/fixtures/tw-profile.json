@@ -1,0 +1,24 @@
+{
+  "request": "/twitch/profiles/ninja",
+  "response": {
+    "message": "Profile retrieved successfully.",
+    "data": {
+      "id": "19571641",
+      "login": "ninja",
+      "display_name": "Ninja",
+      "description": "Just want to make people happy.",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a.png",
+      "followers": 19246072,
+      "is_partner": true,
+      "is_affiliate": false,
+      "created_at": "2011-01-16T04:31:20Z",
+      "is_live": false,
+      "live_viewers": null,
+      "last_broadcast": {
+        "title": "Fortnite",
+        "started_at": "2026-08-01T10:00:00Z"
+      },
+      "url": "https://twitch.tv/ninja"
+    }
+  }
+}

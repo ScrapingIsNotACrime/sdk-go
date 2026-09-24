@@ -1,0 +1,4 @@
+/.superpowers/
+/.cache/
+*.test
+*.out
