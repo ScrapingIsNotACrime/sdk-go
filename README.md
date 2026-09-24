@@ -64,7 +64,7 @@ client, err := sinac.NewClient(
 | Option | Default | Description |
 |---|---|---|
 | `WithAPIKey` | `SCRAPINGISNOTACRIME_API_KEY` env var | Your API key (`sinac_…`). `NewClient` returns an error if none is set. |
-| `WithBaseURL` | `https://api.scrapingisnotacrime.com/v1` | API base URL. Must be the final HTTPS URL: redirects are not followed, so a base URL that itself redirects fails (see [Errors](#errors)) — following one would forward the `X-Api-Key` header to whatever host it points to. |
+| `WithBaseURL` | `https://api.scrapingisnotacrime.com/v1` | API base URL. Should be the final HTTPS URL (http is accepted for local testing); redirects are not followed, so a base URL that itself redirects fails (see [Errors](#errors)) — following one would forward the `X-Api-Key` header to whatever host it points to. |
 | `WithTimeout` | `30 * time.Second` | Per attempt, covering connect, headers and the whole body read. |
 | `WithMaxRetries` | `2` | Extra attempts for 429, 502 and network errors. `0` disables retries. |
 | `WithHTTPClient` | a new `*http.Client` | Bring your own `*http.Client` (for tests, proxies or connection pooling). It is never modified: the SDK works with a shallow copy so it can set its own `CheckRedirect`. |
@@ -155,7 +155,8 @@ Or walk pages one at a time with `Next`:
 
 ```go
 page, err := client.Bluesky.Posts(ctx, "bsky.app", &sinac.BlueskyPostsParams{Limit: 25})
-for page != nil && err == nil {
+// Each page fetched is one billed request, so stop after a bounded number of pages.
+for fetched := 0; page != nil && err == nil && fetched < 3; fetched++ {
 	for _, post := range page.Items {
 		fmt.Println(post.Text)
 	}
