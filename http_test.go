@@ -99,9 +99,9 @@ func TestErrorMapping(t *testing.T) {
 		{404, `{"message":"Profile not found","data":null}`, ErrNotFound, "Profile not found"},
 		{401, `{"message":"Invalid API key"}`, ErrAuthentication, "Invalid API key"},
 		{402, `{"message":"No credits"}`, ErrQuotaExceeded, "No credits — see " + PricingURL},
-		{500, `<html>oops</html>`, ErrAPI, "HTTP 500: <html>oops</html>"},
-		{404, `not json`, ErrNotFound, "HTTP 404: not json"},
-		{400, `{"message":42}`, ErrBadRequest, `HTTP 400: {"message":42}`},
+		{500, `<html>oops</html>`, ErrAPI, "<html>oops</html>"},
+		{404, `not json`, ErrNotFound, "not json"},
+		{400, `{"message":42}`, ErrBadRequest, `{"message":42}`},
 	}
 	for _, c := range cases {
 		core := testCore(t, roundTrip(func(*http.Request) (*http.Response, error) {
@@ -124,7 +124,7 @@ func TestTwoxxWithoutEnvelopeIsAPIError(t *testing.T) {
 		_, err := core.get(context.Background(), route{path: "/x"})
 		var apiErr *Error
 		if !errors.As(err, &apiErr) || !errors.Is(err, ErrAPI) || apiErr.Status != 200 ||
-			!strings.HasPrefix(apiErr.Message, "unexpected response body (HTTP 200)") {
+			!strings.HasPrefix(apiErr.Message, "unexpected response body:") {
 			t.Errorf("body %q: got %v", body, err)
 		}
 	}
@@ -142,7 +142,7 @@ func TestRedirectIsNotFollowed(t *testing.T) {
 	_, err := core.get(context.Background(), route{path: "/x"})
 	var apiErr *Error
 	if !errors.As(err, &apiErr) || !errors.Is(err, ErrAPI) || apiErr.Status != 301 ||
-		apiErr.Message != "HTTP 301: redirect to https://elsewhere.example/v1/v1/x not followed" {
+		apiErr.Message != "redirect to https://elsewhere.example/v1/v1/x not followed" {
 		t.Fatalf("got %v", err)
 	}
 	if calls.Load() != 1 || userClient.CheckRedirect != nil {

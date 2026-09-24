@@ -200,6 +200,16 @@ func snippet(body []byte) string {
 	return string(flat)
 }
 
+// bodySnippet is snippet(body), with a readable fallback for an empty body.
+// Error.Error() already appends "(HTTP n)", so callers never repeat the
+// status themselves in the message they build from this.
+func bodySnippet(body []byte) string {
+	if s := snippet(body); s != "" {
+		return s
+	}
+	return "empty response body"
+}
+
 func interpret(status int, header http.Header, body []byte) (json.RawMessage, *failure) {
 	requestID := header.Get("X-Request-Id")
 	var envelope map[string]json.RawMessage
@@ -209,22 +219,22 @@ func interpret(status int, header http.Header, body []byte) (json.RawMessage, *f
 		if data, ok := envelope["data"]; isEnvelope && ok {
 			return data, nil
 		}
-		message := fmt.Sprintf("unexpected response body (HTTP %d): %s", status, snippet(body))
+		message := "unexpected response body: " + bodySnippet(body)
 		return nil, &failure{err: &Error{Status: status, Message: message, RequestID: requestID, kind: ErrAPI}}
 	}
 
 	retryAfter := header.Get("Retry-After")
 	if status >= 300 && status < 400 {
-		message := fmt.Sprintf("HTTP %d: redirect not followed", status)
+		message := "redirect not followed"
 		if location := header.Get("Location"); location != "" {
-			message = fmt.Sprintf("HTTP %d: redirect to %s not followed", status, location)
+			message = fmt.Sprintf("redirect to %s not followed", location)
 		}
 		return nil, &failure{err: &Error{Status: status, Message: message, RequestID: requestID, kind: ErrAPI}, retryAfter: retryAfter}
 	}
 
 	var message string
 	if raw, ok := envelope["message"]; !isEnvelope || !ok || json.Unmarshal(raw, &message) != nil {
-		message = fmt.Sprintf("HTTP %d: %s", status, snippet(body))
+		message = bodySnippet(body)
 	}
 	return nil, &failure{err: errorFromStatus(status, message, requestID), retryAfter: retryAfter}
 }

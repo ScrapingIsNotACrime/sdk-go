@@ -37,7 +37,8 @@ func (s pageSpec) route() route {
 }
 
 // Page is one page of results. Data is the full page object; Items, HasMore,
-// NextCursor ("" = none) and NextPage (0 = none) are read from it.
+// NextCursor ("" = none) and NextPage (0 = none) are read from it. HasMore is
+// true exactly when Next will fetch another page.
 type Page[T, R any] struct {
 	Items      []T
 	HasMore    bool
@@ -89,6 +90,13 @@ func fetchPage[T, R any](ctx context.Context, h *httpCore, spec pageSpec, specEr
 		next := spec
 		next.cursor, next.page = page.NextCursor, page.NextPage
 		page.next = &next
+	} else {
+		// No further request will ever be made from this page: keep the
+		// state consistent so `for page.HasMore { page, _ = page.Next(ctx) }`
+		// never dereferences a nil page.
+		page.HasMore = false
+		page.NextPage = 0
+		page.NextCursor = ""
 	}
 	return page, nil
 }

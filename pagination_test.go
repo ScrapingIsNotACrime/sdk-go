@@ -109,7 +109,25 @@ func TestNumberedMaxPageWithoutHasMore(t *testing.T) {
 func TestEmptyItemsStopsEvenWithHasMore(t *testing.T) {
 	core, _ := pages(t, `{"data":{"items":[],"has_more":true}}`)
 	spec := pageSpec{path: "/n", kind: numberedPages, itemsKey: "items", page: 1}
-	page, _ := fetchPage[item, itemPage](context.Background(), core, spec, nil)
+	page, err := fetchPage[item, itemPage](context.Background(), core, spec, nil)
+	if err != nil || page.HasMore || page.NextPage != 0 {
+		t.Fatalf("page=%+v err=%v", page, err)
+	}
+	if next, err := page.Next(context.Background()); next != nil || err != nil {
+		t.Fatalf("next=%v err=%v", next, err)
+	}
+}
+
+// TestEmptyItemsWithCursorForcesHasMoreFalse mirrors the numbered-page case
+// above for cursor pagination: has_more true and a non-empty next_cursor, but
+// no items, still means Next will never fetch another page.
+func TestEmptyItemsWithCursorForcesHasMoreFalse(t *testing.T) {
+	core, _ := pages(t, `{"data":{"items":[],"has_more":true,"next_cursor":"c2"}}`)
+	spec := pageSpec{path: "/p", kind: cursorPages, itemsKey: "items"}
+	page, err := fetchPage[item, itemPage](context.Background(), core, spec, nil)
+	if err != nil || page.HasMore || page.NextCursor != "" {
+		t.Fatalf("page=%+v err=%v", page, err)
+	}
 	if next, err := page.Next(context.Background()); next != nil || err != nil {
 		t.Fatalf("next=%v err=%v", next, err)
 	}
